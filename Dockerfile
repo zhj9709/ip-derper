@@ -9,11 +9,11 @@ ENV DERP_HOST=127.0.0.1 \
     DERP_HTTP_PORT=80 \
     DERP_VERIFY_CLIENTS=false
 
-COPY build_cert.sh /app/
-COPY derper /app/derper
+COPY --chmod=755 build_cert.sh /app/
+COPY --chmod=755 derper /app/derper
 
-RUN apk update && apk add openssl \
-    && sh /app/build_cert.sh $DERP_HOST $DERP_CERT_DIR /app/san.conf
+RUN apk add openssl \
+    && /app/build_cert.sh $DERP_HOST $DERP_CERT_DIR /app/san.conf
 
 CMD /app/derper --hostname=$DERP_HOST \
     --certdir=$DERP_CERT_DIR \
