@@ -37,3 +37,7 @@ inserts this into tailscale ACLs: https://login.tailscale.com/admin/acls
 }
 ```
 
+# Thanks
+
+- [veritas501/ip_derper](https://github.com/veritas501/ip_derper)  
+- [fredliang44/derper-docker](https://github.com/fredliang44/derper-docker)
