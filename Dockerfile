@@ -9,10 +9,13 @@ ENV DERP_HOST=127.0.0.1 \
     DERP_HTTP_PORT=80 \
     DERP_VERIFY_CLIENTS=false
 
-COPY --chmod=755 build_cert.sh /app/
-COPY --chmod=755 derper /app/derper
+ARG DERP_ARCH=amd64
+COPY derper-$DERP_ARCH /app/derper
+COPY build_cert.sh /app/
 
-RUN apk add openssl \
+RUN apk --no-cache add openssl \
+    && chmod +x /app/build_cert.sh \
+    && chmod +x /app/derper \
     && /app/build_cert.sh $DERP_HOST $DERP_CERT_DIR /app/san.conf
 
 CMD /app/derper --hostname=$DERP_HOST \
