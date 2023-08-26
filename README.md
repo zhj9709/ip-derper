@@ -10,7 +10,7 @@ docker run -d --name ip-derper -p 50443:443 -p 3478:3478/udp zhj9709/ip-derper
 | DERP_ADDR           | false    | listening server address                                               | :443              |
 | DERP_STUN           | false    | also run a STUN server                                                 | true              |
 | DERP_STUN_PORT      | false    | The UDP port on which to serve STUN.                                   | 3478              |
-| DERP_HTTP_PORT      | false    | The port on which to serve HTTP. Set to -1 to disable                  | 80                |
+| DERP_HTTP_PORT      | false    | The port on which to serve HTTP. Set to -1 to disable                  | -1                |
 | DERP_VERIFY_CLIENTS | false    | verify clients to this DERP server through a local tailscaled instance | false             |
 
 # Usage
