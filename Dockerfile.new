@@ -1,20 +1,13 @@
 FROM golang:1.24-rc-alpine AS builder
 WORKDIR /app
 
-# ========= CONFIG =========
-# download links
-ENV MODIFIED_DERPER_GIT=https://gitea.com/zhj9709/tailscale.git
-# ==========================
-
-# install necessary packages && compile derper
+# install necessary packages && install derper
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
     && apk update && apk add --no-cache git \
     && go env -w GO111MODULE=on \
     && go env -w GOPROXY=https://goproxy.cn,direct \
-    && git clone $MODIFIED_DERPER_GIT tailscale --depth 1 \
-    && cd /app/tailscale/cmd/derper \
-    && go build -ldflags "-s -w" -o /app/derper \
-    && rm -rf /app/tailscale
+    && go install tailscale.com/cmd/derper@latest \
+    && cp $GOPATH/bin/derper /app/derper
 
 # ========= derper image =========
 FROM alpine:latest

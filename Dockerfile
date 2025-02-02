@@ -18,6 +18,7 @@ RUN apk add --no-cache openssl \
     && chmod +x /app/build_cert.sh \
     && /app/build_cert.sh $DERP_HOST $DERP_CERT_DIR /app/san.conf
 
+SHELL ["/bin/sh", "-c"]
 CMD /app/derper --hostname=$DERP_HOST \
     --certdir=$DERP_CERT_DIR \
     --certmode=manual \
